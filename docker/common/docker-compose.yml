@@ -13,7 +13,7 @@ services:
          EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
          ENCRYPT_KEY:       "IMSYMMETRIC"
   zuulserver:
-      image: johncarnell/tmx-zuulsvr:chapter7
+      image: kaloyan84/tmx-zuulsvr:chapter7
       ports:
         - "5555:5555"
       environment:
@@ -63,7 +63,7 @@ services:
         AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
         ENCRYPT_KEY:       "IMSYMMETRIC"
   authenticationservice:
-      image: johncarnell/tmx-authentication-service:chapter7
+      image: kaloyan84/tmx-authentication-service:chapter7-jwt
       ports:
         - "8901:8901"
       environment:

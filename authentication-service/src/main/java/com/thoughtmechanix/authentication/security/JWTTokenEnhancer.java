@@ -1,6 +1,7 @@
 package com.thoughtmechanix.authentication.security;
 
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.thoughtmechanix.authentication.model.UserOrganization;
 import com.thoughtmechanix.authentication.repository.OrgUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class JWTTokenEnhancer implements TokenEnhancer {
         return orgUser.getOrganizationId();
     }
 
+    @HystrixCommand
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         Map<String, Object> additionalInfo = new HashMap<>();

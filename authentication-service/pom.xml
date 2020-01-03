@@ -103,8 +103,8 @@
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>com.thoughtmechanix.authentication.Application</start-class>
-    <docker.image.name>johncarnell/tmx-authentication-service</docker.image.name>
-    <docker.image.tag>chapter7</docker.image.tag>
+    <docker.image.name>kaloyan84/tmx-authentication-service</docker.image.name>
+    <docker.image.tag>chapter7-jwt</docker.image.tag>
   </properties>
 
   <build>
@@ -136,7 +136,7 @@
          <plugin>
              <groupId>com.spotify</groupId>
              <artifactId>docker-maven-plugin</artifactId>
-             <version>0.4.10</version>
+             <version>1.2.1</version>
              <configuration>
                  <imageName>${docker.image.name}:${docker.image.tag}</imageName>
                  <dockerDirectory>${basedir}/target/dockerfile</dockerDirectory>

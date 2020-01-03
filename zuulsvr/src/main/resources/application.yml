@@ -34,8 +34,8 @@ eureka:
 #  debug:
 #    request: true
 #
-#zuul:
-#  prefix:  /api
-#  routes:
-#    organizationservice: /organization/**
-#    licensingservice: /licensing/**
+zuul:
+  prefix: /api
+  routes:
+    organizationservice: /organization/**
+    licensingservice: /licensing/**
