@@ -14,17 +14,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+
 @RestController
 @RequestMapping(value="v1/organizations")
 public class OrganizationServiceController {
     @Autowired
     private OrganizationService orgService;
 
+
     private static final Logger logger = LoggerFactory.getLogger(OrganizationServiceController.class);
 
     @RequestMapping(value="/{organizationId}",method = RequestMethod.GET)
     public Organization getOrganization( @PathVariable("organizationId") String organizationId) {
-       logger.debug("Looking up data for org %s",organizationId);
+        logger.debug("Looking up data for org {}",organizationId );
 
         Organization org = orgService.getOrg(organizationId);
         org.setContactName( "NEW::" + org.getContactName() );
@@ -43,7 +45,7 @@ public class OrganizationServiceController {
 
     @RequestMapping(value="/{organizationId}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrganization( @PathVariable("orgId") String orgId,  @RequestBody Organization org) {
+    public void deleteOrganization( @PathVariable("organizationId") String orgId,  @RequestBody Organization org) {
         orgService.deleteOrg( org );
     }
 }

@@ -1,0 +1,18 @@
+version: '2'
+services:
+  licensingservice:
+      image: johncarnell/tmx-licensing-service:chapter7
+      ports:
+        - "8080:8080"
+      environment:
+        PROFILE: "default"
+        SERVER_PORT: "8080"
+        ES_PORT:           9200
+        DATABASE_PORT:     5432
+        CONFIGSERVER_PORT: 8888
+        EUREKASERVER_PORT: 8761
+        AUTHSERVER_PORT:   8091
+        CONFIGSERVER_URI: "http://configserver:8888"
+        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+        AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+        ENCRYPT_KEY:       "IMSYMMETRIC"

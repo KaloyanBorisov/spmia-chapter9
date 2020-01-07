@@ -14,7 +14,7 @@ import javax.xml.bind.DatatypeConverter;
 
 @Component
 public class TrackingFilter extends ZuulFilter{
-    private static final int      FILTER_ORDER =  1;
+    private static final int      FILTER_ORDER =2;
     private static final boolean  SHOULD_FILTER=true;
     private static final Logger logger = LoggerFactory.getLogger(TrackingFilter.class);
 

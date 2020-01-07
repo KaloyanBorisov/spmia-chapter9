@@ -18,10 +18,9 @@ import java.util.List;
 
 @Component
 public class AuthenticationFilter extends ZuulFilter {
-    private static final int FILTER_ORDER =  2;
-    private static final boolean  SHOULD_FILTER=false;
+    private static final int FILTER_ORDER =  1;
+    private static final boolean  SHOULD_FILTER=true;
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
-
 
     @Autowired
     FilterUtils filterUtils;
@@ -91,7 +90,7 @@ public class AuthenticationFilter extends ZuulFilter {
            ctx.setSendZuulResponse(false);
         }
 
-        UserInfo userInfo = isAuthTokenValid();
+       /* UserInfo userInfo = isAuthTokenValid();
         if (userInfo!=null){
             filterUtils.setUserId(userInfo.getUserId());
             filterUtils.setOrgId(userInfo.getOrganizationId());
@@ -102,7 +101,7 @@ public class AuthenticationFilter extends ZuulFilter {
 
         logger.debug("Authentication token is not valid.");
         ctx.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
-        ctx.setSendZuulResponse(false);
+        ctx.setSendZuulResponse(false);*/
 
         return null;
     }

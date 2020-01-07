@@ -105,7 +105,7 @@
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>com.thoughtmechanix.licenses.Application</start-class>
-    <docker.image.name>johncarnell/tmx-licensing-service</docker.image.name>
+    <docker.image.name>kaloyan84/tmx-licensing-service</docker.image.name>
     <docker.image.tag>chapter7</docker.image.tag>
   </properties>
 
