@@ -40,14 +40,19 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </ConfigTestElement>
         <hashTree/>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="User JWT" enabled="false">
-          <collectionProp name="HeaderManager.headers">
-            <elementProp name="" elementType="Header">
-              <stringProp name="Header.name">Authorization</stringProp>
-              <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6ImQxODU5ZjFmLTRiZDctNDU5My04NjU0LWVhNmQ5YTZhNjI2ZSIsInVzZXJfbmFtZSI6ImpvaG4uY2FybmVsbCIsInNjb3BlIjpbIndlYmNsaWVudCJdLCJleHAiOjE1NzgwMjI1ODYsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJqdGkiOiJhNDAyMWE5MC0zMjE5LTQwYjMtOTg2Yi1kNzU5MjY5NTliNDEiLCJjbGllbnRfaWQiOiJlYWdsZWV5ZSJ9.NvGugmW_LuRtNgaRcb9dYOroGjwEvhLRuKyGrRpYRJI</stringProp>
-            </elementProp>
-          </collectionProp>
-        </HeaderManager>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="192.168.1.101" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">192.168.1.101</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </ConfigTestElement>
         <hashTree/>
         <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="192.168.99.100" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -63,11 +68,20 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </ConfigTestElement>
         <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="User JWT" enabled="false">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Authorization</stringProp>
+              <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6ImQxODU5ZjFmLTRiZDctNDU5My04NjU0LWVhNmQ5YTZhNjI2ZSIsInVzZXJfbmFtZSI6ImpvaG4uY2FybmVsbCIsInNjb3BlIjpbIndlYmNsaWVudCJdLCJleHAiOjE1Nzg1MjEyOTQsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJqdGkiOiJiY2VmYWE5Ni0wNmZmLTQ5ZWMtOTFmZS02YmE4OGNkODhlODIiLCJjbGllbnRfaWQiOiJlYWdsZWV5ZSJ9.IfH6w6kn7Lhli8QgPO953YH7_NH3cMDaUC8D7hJYrAA</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Admin JWT" enabled="true">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">Authorization</stringProp>
-              <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6IjQyZDNkNGY1LTlmMzMtNDJmNC04YWNhLWI3NTE5ZDZhZjFiYiIsInVzZXJfbmFtZSI6IndpbGxpYW0ud29vZHdhcmQiLCJzY29wZSI6WyJ3ZWJjbGllbnQiXSwiZXhwIjoxNTc4NDQzMzE0LCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjBiOWI5OWU1LWJhM2UtNGQ0NC1iNWExLTk0ZWE5NGIxYzBmMCIsImNsaWVudF9pZCI6ImVhZ2xlZXllIn0.4DiMWShWhi9G4ij_1YlxGgYVdeLie7nl6FQyNhuXku4</stringProp>
+              <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6IjQyZDNkNGY1LTlmMzMtNDJmNC04YWNhLWI3NTE5ZDZhZjFiYiIsInVzZXJfbmFtZSI6IndpbGxpYW0ud29vZHdhcmQiLCJzY29wZSI6WyJ3ZWJjbGllbnQiXSwiZXhwIjoxNTc4NTMyNzkyLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjBkMmVhMjg4LTdmOGYtNDg0Mi04MmQ2LTEyMjVjZmEwYWJmMiIsImNsaWVudF9pZCI6ImVhZ2xlZXllIn0.oPzIL2J-nYebKW6oMtl3W3PGRJfOndcBvrG6EzRNRro</stringProp>
             </elementProp>
           </collectionProp>
         </HeaderManager>
@@ -1199,7 +1213,7 @@ vars.put(&quot;auth&quot;,new String(encodedUsernamePassword));</stringProp>
           <stringProp name="TestPlan.comments"> change message: Hello Bulgaria  in    https://github.com/KaloyanBorisov/config-repo/blob/master/licensingservice/licensingservice.yml</stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="refresh_actuator" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="refresh_config_actuator" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments">
               <elementProp name="Content-Type" elementType="HTTPArgument">
@@ -1212,7 +1226,7 @@ vars.put(&quot;auth&quot;,new String(encodedUsernamePassword));</stringProp>
             </collectionProp>
           </elementProp>
           <stringProp name="HTTPSampler.domain"></stringProp>
-          <stringProp name="HTTPSampler.port">8080</stringProp>
+          <stringProp name="HTTPSampler.port">8888</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/refresh</stringProp>

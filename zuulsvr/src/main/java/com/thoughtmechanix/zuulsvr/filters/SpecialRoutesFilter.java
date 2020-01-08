@@ -20,9 +20,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -40,10 +38,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static com.thoughtmechanix.zuulsvr.filters.FilterUtils.AUTH_TOKEN;
+
 @Component
 public class SpecialRoutesFilter extends ZuulFilter {
     private static final int FILTER_ORDER =  1;
-    private static final boolean SHOULD_FILTER = false;
+    private static final boolean SHOULD_FILTER = true;
 
     @Autowired
     FilterUtils filterUtils;
@@ -69,21 +69,32 @@ public class SpecialRoutesFilter extends ZuulFilter {
     private ProxyRequestHelper helper = new ProxyRequestHelper();
 
     private AbTestingRoute getAbRoutingInfo(String serviceName){
+        System.out.println("getAbRoutingInfo()");
         ResponseEntity<AbTestingRoute> restExchange = null;
         try {
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(FilterUtils.CORRELATION_ID, filterUtils.getCorrelationId());
+            headers.add(FilterUtils.AUTH_TOKEN, filterUtils.getAuthToken());
+            HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+
             restExchange = restTemplate.exchange(
                              "http://specialroutesservice/v1/route/abtesting/{serviceName}",
                              HttpMethod.GET,
-                             null, AbTestingRoute.class, serviceName);
+                             requestEntity,
+                             AbTestingRoute.class,
+                             serviceName);
         }
         catch(HttpClientErrorException ex){
             if (ex.getStatusCode()== HttpStatus.NOT_FOUND) return null;
-            throw ex;
+            //throw ex;
+            ex.printStackTrace();
         }
         return restExchange.getBody();
     }
 
     private String buildRouteString(String oldEndpoint, String newEndpoint, String serviceName){
+        System.out.println("buildRouteString()");
         int index = oldEndpoint.indexOf(serviceName);
 
         String strippedRoute = oldEndpoint.substring(index + serviceName.length());
@@ -92,17 +103,20 @@ public class SpecialRoutesFilter extends ZuulFilter {
     }
 
     private String getVerb(HttpServletRequest request) {
+        System.out.println("getVerb(HttpServletRequest request)");
         String sMethod = request.getMethod();
         return sMethod.toUpperCase();
     }
 
     private HttpHost getHttpHost(URL host) {
+        System.out.println("getHttpHost(URL host)");
         HttpHost httpHost = new HttpHost(host.getHost(), host.getPort(),
                 host.getProtocol());
         return httpHost;
     }
 
     private Header[] convertHeaders(MultiValueMap<String, String> headers) {
+        System.out.println("convertHeaders(MultiValueMap<String, String> headers)");
         List<Header> list = new ArrayList<>();
         for (String name : headers.keySet()) {
             for (String value : headers.get(name)) {
@@ -114,11 +128,13 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
     private HttpResponse forwardRequest(HttpClient httpclient, HttpHost httpHost,
                                         HttpRequest httpRequest) throws IOException {
+        System.out.println("forwardRequest()");
         return httpclient.execute(httpHost, httpRequest);
     }
 
 
     private MultiValueMap<String, String> revertHeaders(Header[] headers) {
+        System.out.println("revertHeaders(Header[] headers)");
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         for (Header header : headers) {
             String name = header.getName();
@@ -131,6 +147,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
     }
 
     private InputStream getRequestBody(HttpServletRequest request) {
+        System.out.println("getRequestBody(HttpServletRequest request)");
         InputStream requestEntity = null;
         try {
             requestEntity = request.getInputStream();
@@ -142,6 +159,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
     }
 
     private void setResponse(HttpResponse response) throws IOException {
+        System.out.println("setResponse(HttpResponse response)");
         this.helper.setResponse(response.getStatusLine().getStatusCode(),
                 response.getEntity() == null ? null : response.getEntity().getContent(),
                 revertHeaders(response.getAllHeaders()));
@@ -151,6 +169,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
                                  HttpServletRequest request, MultiValueMap<String, String> headers,
                                  MultiValueMap<String, String> params, InputStream requestEntity)
             throws Exception {
+        System.out.println("HttpResponse forward()");
         Map<String, Object> info = this.helper.debug(verb, uri, headers, params,
                 requestEntity);
         URL host = new URL( uri );
@@ -194,6 +213,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
 
     public boolean useSpecialRoute(AbTestingRoute testRoute){
+        System.out.println("useSpecialRoute(AbTestingRoute testRoute)");
         Random random = new Random();
 
         if (testRoute.getActive().equals("N")) return false;
@@ -207,6 +227,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
     @Override
     public Object run() {
+        System.out.println("run()");
         RequestContext ctx = RequestContext.getCurrentContext();
 
         AbTestingRoute abTestRoute = getAbRoutingInfo( filterUtils.getServiceId() );
@@ -222,6 +243,7 @@ public class SpecialRoutesFilter extends ZuulFilter {
     }
 
     private void forwardToSpecialRoute(String route) {
+        System.out.println("forwardToSpecialRoute(String route)");
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
 

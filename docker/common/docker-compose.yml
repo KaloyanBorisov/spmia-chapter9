@@ -5,7 +5,7 @@ services:
      ports:
          - "8761:8761"
   configserver:
-      image: johncarnell/tmx-confsvr:chapter7
+      image: kaloyan84/tmx-confsvr:chapter7
       ports:
          - "8888:8888"
       environment:

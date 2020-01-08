@@ -1,0 +1,11 @@
+version: '2'
+services:
+  configserver:
+   #   image: johncarnell/tmx-confsvr:chapter7
+      image: kaloyan84/tmx-confsvr:chapter7
+      ports:
+         - "8888:8888"
+      environment:
+         EUREKASERVER_PORT: 8761
+         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+         ENCRYPT_KEY:       "IMSYMMETRIC"
