@@ -81,7 +81,7 @@
           <collectionProp name="HeaderManager.headers">
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">Authorization</stringProp>
-              <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6IjQyZDNkNGY1LTlmMzMtNDJmNC04YWNhLWI3NTE5ZDZhZjFiYiIsInVzZXJfbmFtZSI6IndpbGxpYW0ud29vZHdhcmQiLCJzY29wZSI6WyJ3ZWJjbGllbnQiXSwiZXhwIjoxNTc4NTMyNzkyLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjBkMmVhMjg4LTdmOGYtNDg0Mi04MmQ2LTEyMjVjZmEwYWJmMiIsImNsaWVudF9pZCI6ImVhZ2xlZXllIn0.oPzIL2J-nYebKW6oMtl3W3PGRJfOndcBvrG6EzRNRro</stringProp>
+              <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6IjQyZDNkNGY1LTlmMzMtNDJmNC04YWNhLWI3NTE5ZDZhZjFiYiIsInVzZXJfbmFtZSI6IndpbGxpYW0ud29vZHdhcmQiLCJzY29wZSI6WyJ3ZWJjbGllbnQiXSwiZXhwIjoxNTc4NjAzMjE4LCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImY1MjA4NmJlLTljOWEtNDI0Yy05YmUwLTJlZjk2OWIyMjZkMyIsImNsaWVudF9pZCI6ImVhZ2xlZXllIn0.M5EA-Jiodb4ViBiNaUC4dNolxnWkER_zBnxQT5i7_LU</stringProp>
             </elementProp>
           </collectionProp>
         </HeaderManager>

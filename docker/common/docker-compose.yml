@@ -37,7 +37,9 @@ services:
         - "8080:8080"
       environment:
         PROFILE: "default"
-        SERVER_PORT: "8080"
+        KAFKASERVER_URI:  "kafkaserver"
+        ZKSERVER_URI:     "kafkaserver"
+        SERVER_PORT:       8080
         ES_PORT:           9200
         DATABASE_PORT:     5432
         CONFIGSERVER_PORT: 8888
@@ -46,14 +48,16 @@ services:
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
-        ENCRYPT_KEY:       "IMSYMMETRIC"
+        ENCRYPT_KEY:      "IMSYMMETRIC"
   organizationservice:
       image: kaloyan84/tmx-organization-service:chapter7
       ports:
         - "8085:8085"
       environment:
-        PROFILE: "default"
-        SERVER_PORT: "8085"
+        PROFILE:          "default"
+        KAFKASERVER_URI:  "kafkaserver"
+        ZKSERVER_URI:     "kafkaserver"
+        SERVER_PORT:       8085
         DATABASE_PORT:     5432
         CONFIGSERVER_PORT: 8888
         EUREKASERVER_PORT: 8761
@@ -101,3 +105,12 @@ services:
       DATABASESERVER_PORT:      "5432"
       CONFIGSERVER_PORT:        "8888"
       ENCRYPT_KEY:       "IMSYMMETRIC"
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+  kafkaserver:
+      image: spotify/kafka
+      ports:
+        - 2181:2181
+        - 9092:9092
