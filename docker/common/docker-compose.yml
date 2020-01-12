@@ -1,11 +1,11 @@
 version: '2'
 services:
   eurekaserver:
-     image:   johncarnell/tmx-eurekasvr:chapter7
+     image: kaloyan84/tmx-eurekasvr:chapter8
      ports:
          - "8761:8761"
   configserver:
-      image: kaloyan84/tmx-confsvr:chapter7
+      image: kaloyan84/tmx-confsvr:chapter8
       ports:
          - "8888:8888"
       environment:
@@ -13,7 +13,7 @@ services:
          EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
          ENCRYPT_KEY:       "IMSYMMETRIC"
   zuulserver:
-      image: kaloyan84/tmx-zuulsvr:chapter7-authfilter
+      image: kaloyan84/tmx-zuulsvr:chapter8
       ports:
         - "5555:5555"
       environment:
@@ -32,7 +32,7 @@ services:
         - POSTGRES_PASSWORD=p0stgr@s
         - POSTGRES_DB=eagle_eye_local
   licensingservice:
-      image: kaloyan84/tmx-licensing-service:chapter7
+      image: kaloyan84/tmx-licensing-service:chapter8
       ports:
         - "8080:8080"
       environment:
@@ -45,12 +45,14 @@ services:
         CONFIGSERVER_PORT: 8888
         EUREKASERVER_PORT: 8761
         AUTHSERVER_PORT:   8091
+        KAFKASERVER_PORT:  2181
+        REDIS_PORT:        6379
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
         ENCRYPT_KEY:      "IMSYMMETRIC"
   organizationservice:
-      image: kaloyan84/tmx-organization-service:chapter7
+      image: kaloyan84/tmx-organization-service:chapter8
       ports:
         - "8085:8085"
       environment:
@@ -62,12 +64,13 @@ services:
         CONFIGSERVER_PORT: 8888
         EUREKASERVER_PORT: 8761
         AUTHSERVER_PORT:   8091
+        KAFKASERVER_PORT:  2181
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
-        ENCRYPT_KEY:       "IMSYMMETRIC"
+        ENCRYPT_KEY:      "IMSYMMETRIC"
   authenticationservice:
-      image: kaloyan84/tmx-authentication-service:chapter7-jwt
+      image: kaloyan84/tmx-authentication-service:chapter8
       ports:
         - "8901:8901"
       environment:
@@ -80,7 +83,7 @@ services:
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         ENCRYPT_KEY:       "IMSYMMETRIC"
   orgservice-new:
-    image: kaloyan84/tmx-orgservice-new:chapter7
+    image: kaloyan84/tmx-orgservice-new:chapter8
     ports:
       - "8087:8087"
     environment:
@@ -93,7 +96,7 @@ services:
       CONFIGSERVER_PORT:        "8888"
       ENCRYPT_KEY:       "IMSYMMETRIC"
   specialroutes-service:
-    image: kaloyan84/tmx-specialroutes-service:chapter7
+    image: kaloyan84/tmx-specialroutes-service:chapter8
     ports:
       - "8910:8910"
     environment:

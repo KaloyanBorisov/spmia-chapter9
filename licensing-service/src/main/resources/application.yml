@@ -15,6 +15,12 @@ spring:
         binder:
           zkNodes: localhost
           brokers: localhost
+
+#        input:
+#          destination: orgChangeTopic
+#          content-type: application/json
+#          group: licensingGroup
+
 #security:
 #  oauth2:
 #   resource:
@@ -35,5 +41,3 @@ logging:
     com.netflix: WARN
     org.springframework.web: WARN
     com.thoughtmechanix: DEBUG
-
-

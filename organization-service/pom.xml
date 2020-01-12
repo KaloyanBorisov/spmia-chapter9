@@ -67,6 +67,16 @@
     </dependency>
 
     <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-stream</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
     </dependency>
@@ -98,13 +108,14 @@
           <version>1.5.9</version>
       </dependency>
   </dependencies>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>com.thoughtmechanix.organization.Application</start-class>
     <docker.image.name>kaloyan84/tmx-organization-service</docker.image.name>
-    <docker.image.tag>chapter7</docker.image.tag>
+    <docker.image.tag>chapter8</docker.image.tag>
   </properties>
 
   <build>
@@ -154,5 +165,5 @@
              <artifactId>spring-boot-maven-plugin</artifactId>
          </plugin>
      </plugins>
- </build>
+  </build>
 </project>

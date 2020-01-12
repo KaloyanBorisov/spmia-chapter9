@@ -45,6 +45,7 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-config-client</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
@@ -70,7 +71,7 @@
     <start-class>com.thoughtmechanix.zuulsvr.ZuulServerApplication</start-class>
     <java.version>1.8</java.version>
     <docker.image.name>kaloyan84/tmx-zuulsvr</docker.image.name>
-    <docker.image.tag>chapter7-authfilter</docker.image.tag>
+    <docker.image.tag>chapter8</docker.image.tag>
   </properties>
 
   <build>
