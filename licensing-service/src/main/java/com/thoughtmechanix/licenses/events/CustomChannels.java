@@ -7,4 +7,7 @@ import org.springframework.messaging.SubscribableChannel;
 public interface CustomChannels {
     @Input("inboundOrgChanges")
     SubscribableChannel orgs();
+
+    @Input("inboundNewOrganizationChanges")
+    SubscribableChannel newOrgs();
 }

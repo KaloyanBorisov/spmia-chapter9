@@ -75,7 +75,7 @@ services:
         - "8901:8901"
       environment:
         PROFILE: "default"
-        SERVER_PORT: "8901"
+        SERVER_PORT:       8901
         DATABASE_PORT:     5432
         CONFIGSERVER_PORT: 8888
         EUREKASERVER_PORT: 8761
@@ -88,12 +88,15 @@ services:
       - "8087:8087"
     environment:
       PROFILE: "default"
-      SERVER_PORT: "8087"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT:        "8761"
-      DATABASESERVER_PORT:      "5432"
-      CONFIGSERVER_PORT:        "8888"
+      KAFKASERVER_URI:  "kafkaserver"
+      ZKSERVER_URI:     "kafkaserver"
+      KAFKASERVER_PORT:         2181
+      SERVER_PORT:              8087
+      EUREKASERVER_PORT:        8761
+      DATABASESERVER_PORT:      5432
+      CONFIGSERVER_PORT:        8888
       ENCRYPT_KEY:       "IMSYMMETRIC"
   specialroutes-service:
     image: kaloyan84/tmx-specialroutes-service:chapter8
@@ -104,9 +107,12 @@ services:
       SERVER_PORT: "8910"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT:        "8761"
-      DATABASESERVER_PORT:      "5432"
-      CONFIGSERVER_PORT:        "8888"
+      KAFKASERVER_URI:  "kafkaserver"
+      ZKSERVER_URI:     "kafkaserver"
+      KAFKASERVER_PORT:         2181
+      EUREKASERVER_PORT:        8761
+      DATABASESERVER_PORT:      5432
+      CONFIGSERVER_PORT:        8888
       ENCRYPT_KEY:       "IMSYMMETRIC"
   redis:
     image: redis:latest

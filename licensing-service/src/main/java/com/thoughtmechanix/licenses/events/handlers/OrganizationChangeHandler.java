@@ -44,4 +44,28 @@ public class OrganizationChangeHandler {
         }
     }
 
+    @StreamListener("inboundNewOrganizationChanges")
+    public void loggerSink2(OrganizationChangeModel orgChange) {
+        logger.debug("Received a new message of type " + orgChange.getType());
+        switch(orgChange.getAction()){
+            case "GET":
+                logger.debug("Received a GET event from  NEW organization service for organization id {}", orgChange.getOrganizationId());
+                break;
+            case "SAVE":
+                logger.debug("Received a SAVE event from NEW organization service for organization id {}", orgChange.getOrganizationId());
+                break;
+            case "UPDATE":
+                logger.debug("Received a UPDATE event from NEW organization service for organization id {}", orgChange.getOrganizationId());
+                organizationRedisRepository.deleteOrganization(orgChange.getOrganizationId());
+                break;
+            case "DELETE":
+                logger.debug("Received a DELETE event from NEW organization service for organization id {}", orgChange.getOrganizationId());
+                organizationRedisRepository.deleteOrganization(orgChange.getOrganizationId());
+                break;
+            default:
+                logger.error("Received an UNKNOWN event from NEW organization service of type {}", orgChange.getType());
+                break;
+
+        }
+    }
 }
