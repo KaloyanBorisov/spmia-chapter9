@@ -13,7 +13,7 @@ services:
          EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
          ENCRYPT_KEY:       "IMSYMMETRIC"
   zipkin:
-    image: johncarnell/tmx-zipkinsvr:chapter9
+    image: kaloyan84/tmx-zipkinsvr:chapter9
     ports:
       - "9411:9411"
     environment:
@@ -27,6 +27,7 @@ services:
         SERVER_PORT: "5555"
         CONFIGSERVER_PORT: 8888
         EUREKASERVER_PORT: 8761
+        ZIPKIN_PORT:       9411
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
   database:
