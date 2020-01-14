@@ -36,6 +36,13 @@ while ! `nc -z redis $REDIS_PORT`; do sleep 10; done
 echo "******* REDIS has started"
 
 echo "********************************************************"
+echo "Waiting for the ZIPKIN server to start  on port $ZIPKIN_PORT"
+echo "********************************************************"
+while ! `nc -z zipkin $ZIPKIN_PORT`; do sleep 10; done
+echo "******* ZIPKIN has started"
+
+
+echo "********************************************************"
 echo "Starting License Server with Configuration Service via Eureka :  $EUREKASERVER_URI:$SERVER_PORT"
 echo "Using Kafka Server: $KAFKASERVER_URI"
 echo "Using ZK    Server: $ZKSERVER_URI"
@@ -45,6 +52,7 @@ java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
      -Dspring.cloud.config.uri=$CONFIGSERVER_URI                          \
      -Dspring.cloud.stream.kafka.binder.zkNodes=$KAFKASERVER_URI          \
      -Dspring.cloud.stream.kafka.binder.brokers=$ZKSERVER_URI             \
+     -Dspring.zipkin.baseUrl=$ZIPKIN_URI                                  \
      -Dspring.profiles.active=$PROFILE -jar /usr/local/licensingservice/@project.build.finalName@.jar
 
 

@@ -1,19 +1,25 @@
 version: '2'
 services:
   eurekaserver:
-     image: kaloyan84/tmx-eurekasvr:chapter8
+     image: kaloyan84/tmx-eurekasvr:chapter9
      ports:
          - "8761:8761"
   configserver:
-      image: kaloyan84/tmx-confsvr:chapter8
+      image: kaloyan84/tmx-confsvr:chapter9
       ports:
          - "8888:8888"
       environment:
          EUREKASERVER_PORT: 8761
          EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
          ENCRYPT_KEY:       "IMSYMMETRIC"
+  zipkin:
+    image: johncarnell/tmx-zipkinsvr:chapter9
+    ports:
+      - "9411:9411"
+    environment:
+      SERVER_PORT: "9411"
   zuulserver:
-      image: kaloyan84/tmx-zuulsvr:chapter8
+      image: kaloyan84/tmx-zuulsvr:chapter9
       ports:
         - "5555:5555"
       environment:
@@ -32,7 +38,7 @@ services:
         - POSTGRES_PASSWORD=p0stgr@s
         - POSTGRES_DB=eagle_eye_local
   licensingservice:
-      image: kaloyan84/tmx-licensing-service:chapter8
+      image: kaloyan84/tmx-licensing-service:chapter9
       ports:
         - "8080:8080"
       environment:
@@ -47,12 +53,14 @@ services:
         AUTHSERVER_PORT:   8091
         KAFKASERVER_PORT:  2181
         REDIS_PORT:        6379
+        ZIPKIN_PORT:       9411
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+        ZIPKIN_URI: "http://zipkin:9411"
         ENCRYPT_KEY:      "IMSYMMETRIC"
   organizationservice:
-      image: kaloyan84/tmx-organization-service:chapter8
+      image: kaloyan84/tmx-organization-service:chapter9
       ports:
         - "8085:8085"
       environment:
@@ -65,12 +73,14 @@ services:
         EUREKASERVER_PORT: 8761
         AUTHSERVER_PORT:   8091
         KAFKASERVER_PORT:  2181
+        ZIPKIN_PORT:       9411
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
+        ZIPKIN_URI:       "http://zipkin:9411"
         ENCRYPT_KEY:      "IMSYMMETRIC"
   authenticationservice:
-      image: kaloyan84/tmx-authentication-service:chapter8
+      image: kaloyan84/tmx-authentication-service:chapter9
       ports:
         - "8901:8901"
       environment:
@@ -83,7 +93,7 @@ services:
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         ENCRYPT_KEY:       "IMSYMMETRIC"
   orgservice-new:
-    image: kaloyan84/tmx-orgservice-new:chapter8
+    image: kaloyan84/tmx-orgservice-new:chapter9
     ports:
       - "8087:8087"
     environment:
@@ -99,7 +109,7 @@ services:
       CONFIGSERVER_PORT:        8888
       ENCRYPT_KEY:       "IMSYMMETRIC"
   specialroutes-service:
-    image: kaloyan84/tmx-specialroutes-service:chapter8
+    image: kaloyan84/tmx-specialroutes-service:chapter9
     ports:
       - "8910:8910"
     environment:
@@ -123,3 +133,14 @@ services:
       ports:
         - 2181:2181
         - 9092:9092
+  #  This is the openzipkin server.
+  # zipkin:
+  #   image: openzipkin/zipkin
+  #   ports:
+  #     - 9411:9411
+  #Attention:  Replace the value in the “command” attribute with the value supplied to you from Papertrail
+  logspout:
+    image: gliderlabs/logspout:latest
+    command: syslog://logs3.papertrailapp.com:41356
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

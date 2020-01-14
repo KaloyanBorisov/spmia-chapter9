@@ -6,6 +6,9 @@ import com.thoughtmechanix.licenses.utils.UserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.cloud.sleuth.Span;
+import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -17,17 +20,26 @@ public class OrganizationRestTemplateClient {
     RestTemplate restTemplate;
 
     @Autowired
+    Tracer tracer;
+
+    @Autowired
     OrganizationRedisRepository orgRedisRepo;
 
     private static final Logger logger = LoggerFactory.getLogger(OrganizationRestTemplateClient.class);
 
     private Organization checkRedisCache(String organizationId) {
+       Span newSpan = tracer.createSpan("readLicensingDataFromRedis");
         try {
             return orgRedisRepo.findOrganization(organizationId);
         }
         catch (Exception ex){
             logger.error("Error encountered while trying to retrieve organization {} check Redis Cache.  Exception {}", organizationId, ex);
             return null;
+        }
+        finally {
+          newSpan.tag("peer.service", "redis");
+          newSpan.logEvent(org.springframework.cloud.sleuth.Span.CLIENT_RECV);
+          tracer.close(newSpan);
         }
     }
 
@@ -53,7 +65,7 @@ public class OrganizationRestTemplateClient {
 
         ResponseEntity<Organization> restExchange =
                 restTemplate.exchange(
-                        "http://zuulserver:5555/api/organization/v1/organizations/{organizationId}",
+                        "http://zuulservice/api/organization/v1/organizations/{organizationId}",
                         HttpMethod.GET,
                         null, Organization.class, organizationId);
 

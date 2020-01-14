@@ -4,6 +4,8 @@ spring:
   profiles:
     active:
       default
+  zipkin:
+     baseUrl:  localhost:9411
   cloud:
     config:
       enabled: true
@@ -34,8 +36,8 @@ eureka:
 #  debug:
 #    request: true
 #
-zuul:
-  prefix: /api
-  routes:
-    organizationservice: /organization/**
-    licensingservice: /licensing/**
+#zuul:
+#  prefix:  /api
+#  routes:
+#    organizationservice: /organization/**
+#    licensingservice: /licensing/**

@@ -4,6 +4,11 @@ spring:
   profiles:
     active:
       default
+    #    sleuth:
+    #      sampler:
+    #         percentage:  1
+  zipkin:
+    baseUrl:  localhost:9411
   cloud:
     stream:
       bindings:

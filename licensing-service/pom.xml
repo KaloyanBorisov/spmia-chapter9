@@ -110,15 +110,21 @@
           <groupId>org.springframework.cloud</groupId>
           <artifactId>spring-cloud-security</artifactId>
       </dependency>
-
       <dependency>
           <groupId>org.springframework.security.oauth</groupId>
           <artifactId>spring-security-oauth2</artifactId>
       </dependency>
-
       <dependency>
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-jwt</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter-sleuth</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-sleuth-zipkin</artifactId>
       </dependency>
 
     <dependency>
@@ -138,7 +144,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>com.thoughtmechanix.licenses.Application</start-class>
     <docker.image.name>kaloyan84/tmx-licensing-service</docker.image.name>
-    <docker.image.tag>chapter8</docker.image.tag>
+    <docker.image.tag>chapter9</docker.image.tag>
   </properties>
 
   <build>

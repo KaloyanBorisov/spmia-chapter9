@@ -25,6 +25,7 @@
     <module>eurekasvr</module>
     <module>specialroutes-service</module>
     <module>zuulsvr</module>
+    <module>zipkinsvr</module>
   </modules>
   <build>
     <plugins>

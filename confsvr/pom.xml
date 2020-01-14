@@ -50,7 +50,7 @@
     <start-class>com.thoughtmechanix.confsvr.ConfigServerApplication</start-class>
     <java.version>1.8</java.version>
     <docker.image.name>kaloyan84/tmx-confsvr</docker.image.name>
-    <docker.image.tag>chapter8</docker.image.tag>
+    <docker.image.tag>chapter9</docker.image.tag>
   </properties>
   <build>
      <plugins>
