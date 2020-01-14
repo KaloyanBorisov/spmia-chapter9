@@ -19,7 +19,7 @@ services:
     environment:
       SERVER_PORT: "9411"
   zuulserver:
-      image: kaloyan84/tmx-zuulsvr:chapter9
+      image: johncarnell/tmx-zuulsvr:chapter9
       ports:
         - "5555:5555"
       environment:
