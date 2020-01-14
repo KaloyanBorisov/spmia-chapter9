@@ -80,7 +80,7 @@ services:
       ZIPKIN_PORT:         "9411"
       ENCRYPT_KEY:       "IMSYMMETRIC"
   redis:
-    image: redis:alpine
+    image: redis:latest
     ports:
       - 6379:6379
   kafkaserver:
@@ -95,7 +95,7 @@ services:
   #     - 9411:9411
   #Attention:  Replace the value in the “command” attribute with the value supplied to you from Papertrail
   logspout:
-    image: gliderlabs/logspout
-    command: syslog://logs5.papertrailapp.com:51601
+    image: gliderlabs/logspout:latest
+    command: syslog://logs3.papertrailapp.com:41356
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
