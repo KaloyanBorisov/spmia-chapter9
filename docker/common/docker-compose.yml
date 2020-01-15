@@ -59,7 +59,7 @@ services:
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
         AUTHSERVER_URI:   "http://authenticationservice:8901/auth/user"
-        ZIPKIN_URI: "http://zipkin:9411"
+        ZIPKIN_URI:       "http://zipkin:9411"
         ENCRYPT_KEY:      "IMSYMMETRIC"
   organizationservice:
       image: kaloyan84/tmx-organization-service:chapter9
@@ -91,8 +91,10 @@ services:
         DATABASE_PORT:     5432
         CONFIGSERVER_PORT: 8888
         EUREKASERVER_PORT: 8761
+        ZIPKIN_PORT:       9411
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+        ZIPKIN_URI:       "http://zipkin:9411"
         ENCRYPT_KEY:       "IMSYMMETRIC"
   orgservice-new:
     image: kaloyan84/tmx-orgservice-new:chapter9
@@ -102,6 +104,7 @@ services:
       PROFILE: "default"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      ZIPKIN_URI:       "http://zipkin:9411"
       KAFKASERVER_URI:  "kafkaserver"
       ZKSERVER_URI:     "kafkaserver"
       KAFKASERVER_PORT:         2181
@@ -109,6 +112,7 @@ services:
       EUREKASERVER_PORT:        8761
       DATABASESERVER_PORT:      5432
       CONFIGSERVER_PORT:        8888
+      ZIPKIN_PORT:              9411
       ENCRYPT_KEY:       "IMSYMMETRIC"
   specialroutes-service:
     image: kaloyan84/tmx-specialroutes-service:chapter9
@@ -119,12 +123,14 @@ services:
       SERVER_PORT: "8910"
       CONFIGSERVER_URI: "http://configserver:8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      ZIPKIN_URI:       "http://zipkin:9411"
       KAFKASERVER_URI:  "kafkaserver"
       ZKSERVER_URI:     "kafkaserver"
       KAFKASERVER_PORT:         2181
       EUREKASERVER_PORT:        8761
       DATABASESERVER_PORT:      5432
       CONFIGSERVER_PORT:        8888
+      ZIPKIN_PORT:              9411
       ENCRYPT_KEY:       "IMSYMMETRIC"
   redis:
     image: redis:latest

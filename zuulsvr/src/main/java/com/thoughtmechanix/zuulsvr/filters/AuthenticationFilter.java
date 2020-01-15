@@ -14,12 +14,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-
 @Component
 public class AuthenticationFilter extends ZuulFilter {
-    private static final int FILTER_ORDER =  1;
-    private static final boolean  SHOULD_FILTER=true;
+    private static final int FILTER_ORDER = 1;
+    private static final boolean SHOULD_FILTER = true;
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     @Autowired
@@ -44,14 +42,15 @@ public class AuthenticationFilter extends ZuulFilter {
     }
 
     private boolean isAuthTokenPresent() {
-        if (filterUtils.getAuthToken() !=null){
+        if (filterUtils.getAuthToken() != null) {
             return true;
         }
 
         return false;
     }
 
-    private UserInfo isAuthTokenValid(){
+    private UserInfo isAuthTokenValid() {
+        logger.debug("isAuthTokenValid(): ");
         ResponseEntity<UserInfo> restExchange = null;
         try {
             restExchange =
@@ -59,16 +58,14 @@ public class AuthenticationFilter extends ZuulFilter {
                             "http://authenticationservice/v1/validate/{token}",
                             HttpMethod.GET,
                             null, UserInfo.class, filterUtils.getAuthToken());
-        }
-        catch(HttpClientErrorException ex){
-            if (ex.getStatusCode()==HttpStatus.UNAUTHORIZED) {
+        } catch (HttpClientErrorException ex) {
+            ex.printStackTrace();
+            if (ex.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 return null;
             }
-
             throw ex;
         }
-
-
+        logger.debug("restExchange.getBody(): "+restExchange.getBody());
         return restExchange.getBody();
     }
 
@@ -77,21 +74,23 @@ public class AuthenticationFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
 
         //If we are dealing with a call to the authentication service, let the call go through without authenticating
-        if ( ctx.getRequest().getRequestURI().equals("/api/authenticationservice/v1/authenticate")){
+        if (ctx.getRequest().getRequestURI().equals("/api/authenticationservice/v1/authenticate")) {
             return null;
         }
 
-        if (isAuthTokenPresent()){
-           logger.debug("Authentication token is present.");
-        }else{
-           logger.debug("Authentication token is not present.");
+        if (isAuthTokenPresent()) {
+            logger.debug("Authentication token is present.");
+        } else {
+            logger.debug("Authentication token is not present.");
 
-           ctx.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
-           ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
+            ctx.setSendZuulResponse(false);
         }
 
        /* UserInfo userInfo = isAuthTokenValid();
-        if (userInfo!=null){
+        if (userInfo != null) {
+            logger.info("userInfo.getUserId(): " +userInfo.getUserId());
+            logger.info("serInfo.getOrganizationId(): "+userInfo.getOrganizationId());
             filterUtils.setUserId(userInfo.getUserId());
             filterUtils.setOrgId(userInfo.getOrganizationId());
 

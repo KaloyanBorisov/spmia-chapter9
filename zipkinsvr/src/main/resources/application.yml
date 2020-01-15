@@ -9,4 +9,3 @@ logging:
     com.netflix: WARN
     org.springframework.web: WARN
     com.thoughtmechanix: DEBUG
-    zipkin: debug

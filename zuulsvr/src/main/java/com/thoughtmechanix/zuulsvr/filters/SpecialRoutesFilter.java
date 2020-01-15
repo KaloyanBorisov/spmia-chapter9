@@ -20,6 +20,8 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
+import org.springframework.cloud.sleuth.Span;
+import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -51,6 +53,9 @@ public class SpecialRoutesFilter extends ZuulFilter {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    Tracer tracer;
+
     @Override
     public String filterType() {
         return filterUtils.ROUTE_FILTER_TYPE;
@@ -70,9 +75,9 @@ public class SpecialRoutesFilter extends ZuulFilter {
 
     private AbTestingRoute getAbRoutingInfo(String serviceName){
         System.out.println("getAbRoutingInfo()");
+        Span span = tracer.createSpan("getAbRoutingInfo");
         ResponseEntity<AbTestingRoute> restExchange = null;
         try {
-
             HttpHeaders headers = new HttpHeaders();
             headers.add(FilterUtils.CORRELATION_ID, filterUtils.getCorrelationId());
             headers.add(FilterUtils.AUTH_TOKEN, filterUtils.getAuthToken());
@@ -89,6 +94,10 @@ public class SpecialRoutesFilter extends ZuulFilter {
             if (ex.getStatusCode()== HttpStatus.NOT_FOUND) return null;
             //throw ex;
             ex.printStackTrace();
+        }finally{
+            span.tag("peer.service", "specialroutesservice");
+            span.logEvent(org.springframework.cloud.sleuth.Span.CLIENT_RECV);
+            tracer.close(span);
         }
         return restExchange.getBody();
     }
@@ -198,7 +207,6 @@ public class SpecialRoutesFilter extends ZuulFilter {
                 break;
             default:
                 httpRequest = new BasicHttpRequest(verb, uri);
-
         }
         try {
             httpRequest.setHeaders(convertHeaders(headers));
@@ -209,8 +217,6 @@ public class SpecialRoutesFilter extends ZuulFilter {
         finally {
         }
     }
-
-
 
     public boolean useSpecialRoute(AbTestingRoute testRoute){
         System.out.println("useSpecialRoute(AbTestingRoute testRoute)");
