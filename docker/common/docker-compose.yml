@@ -19,7 +19,7 @@ services:
     environment:
       SERVER_PORT: "9411"
   zuulserver:
-      image: johncarnell/tmx-zuulsvr:chapter9
+      image: kaloyan84/tmx-zuulsvr:chapter9
       ports:
         - "5555:5555"
       environment:
@@ -30,6 +30,7 @@ services:
         ZIPKIN_PORT:       9411
         CONFIGSERVER_URI: "http://configserver:8888"
         EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+        ZIPKIN_URI: "http://zipkin:9411"
   database:
       image: postgres:9.5
       ports:

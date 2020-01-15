@@ -18,6 +18,9 @@ public class ResponseFilter extends ZuulFilter{
     @Autowired
     Tracer tracer;
 
+    @Autowired
+    private FilterUtils filterUtils;
+
     @Override
     public String filterType() {
         return FilterUtils.POST_FILTER_TYPE;
@@ -36,7 +39,7 @@ public class ResponseFilter extends ZuulFilter{
     @Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        ctx.getResponse().addHeader("tmx-correlation-id", tracer.getCurrentSpan().traceIdString());
+        ctx.getResponse().addHeader("tmx-correlation-id", filterUtils.getCorrelationId());
         return null;
     }
 }

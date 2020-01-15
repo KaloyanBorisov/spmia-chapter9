@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.sleuth.Sampler;
 import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
@@ -37,6 +38,7 @@ public class Application {
 
     @Primary
     @Bean
+    @LoadBalanced
     public RestTemplate getCustomRestTemplate() {
         RestTemplate template = new RestTemplate();
         List interceptors = template.getInterceptors();
@@ -64,6 +66,7 @@ public class Application {
     }
 
     @Bean
+    @LoadBalanced
     public RedisTemplate<String, Object> redisTemplate() {
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(jedisConnectionFactory());

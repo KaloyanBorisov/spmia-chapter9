@@ -8,6 +8,7 @@ import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.DatatypeConverter;
@@ -17,6 +18,9 @@ public class TrackingFilter extends ZuulFilter{
     private static final int      FILTER_ORDER =2;
     private static final boolean  SHOULD_FILTER=true;
     private static final Logger logger = LoggerFactory.getLogger(TrackingFilter.class);
+
+    @Autowired
+    Tracer tracer;
 
     @Autowired
     private FilterUtils filterUtils;
@@ -47,7 +51,7 @@ public class TrackingFilter extends ZuulFilter{
     }
 
     private String generateCorrelationId(){
-        return java.util.UUID.randomUUID().toString();
+        return tracer.getCurrentSpan().traceIdString();
     }
 
     private String getOrganizationId(){
